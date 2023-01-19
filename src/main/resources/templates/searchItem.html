@@ -61,10 +61,11 @@
 
 		<!-- 検索フォーム -->
 		<div id="forms">
-			<form action="" class="form-inline" role="form" th:action="@{/search/searchItem}" th:object="${searchItemForm}" method="POST">
+			<form action="" class="form-inline" role="form"
+				th:action="@{/search/searchItem}" method="POST">
 				<div class="form-group">
-					<input type="text" class="form-control" id="name"
-						placeholder="item name" name="name" th:field="*{name}"/>
+					<input type="text" class="form-control" id="name" name="name"
+						placeholder="item name" />
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
@@ -100,10 +101,10 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous" th:if="${page} > 1"><a href="#"
+					<li class="previous"><a href="#"
 						th:href="@{/showItemList?page=} + ${page-1}">&larr; prev</a></li>
 					<li class="next" th:if="${page} < ${totalPage}"><a href="#"
-						th:href="@{/showItemList?page=} + ${page+1}">next &rarr;</a></li> 
+						th:href="@{/showItemList?page=} + ${page+1}">next &rarr;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -136,7 +137,7 @@
 				</tbody>
 			</table>
 		</div>
-		
+
 		<!-- pagination -->
 		<div class="pages">
 			<nav class="page-nav">
@@ -149,7 +150,7 @@
 			</nav>
 			<!-- ページ番号を指定して表示するフォーム -->
 			<div id="select-page">
-				<form class="form-inline" method="POST" th:action="@{/selectPage?page=} + ${selectPage}">
+				<form class="form-inline" method="POST" th:action="@{/selectPage}">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
 							<label></label> <input type="text" class="form-control"
@@ -164,7 +165,7 @@
 				</form>
 			</div>
 		</div>
-	</div>	
-	<script th:src="@{@{/js/category.j}"></script> 
+	</div>
+	<script th:src="@{@{/js/category.j}"></script>
 </body>
 </html>

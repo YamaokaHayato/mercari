@@ -27,7 +27,7 @@ public class AddItemService {
 	}
 	
 	public List<Category> findByLargeCategory() {
-		List<Category> bigCategoryList = categoryRepository.findAll();
+		List<Category> bigCategoryList = categoryRepository.findByLargeCategory();
 		return bigCategoryList;
 	}
 	

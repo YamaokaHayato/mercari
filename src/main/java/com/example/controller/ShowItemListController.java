@@ -1,14 +1,20 @@
 package com.example.controller;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.example.domain.Category;
 import com.example.domain.Item;
+import com.example.repository.CategoryRepository;
+import com.example.repository.ItemsRepository;
 import com.example.service.ShowItemListService;
 
 /**
@@ -18,16 +24,90 @@ import com.example.service.ShowItemListService;
  *
  */
 @Controller
-@RequestMapping("/")
+@RequestMapping("")
 public class ShowItemListController {
 	
 	@Autowired
-	private ShowItemListService showItemListService;
+	private ItemsRepository itemsRepository;
 	
+//	@Autowired
+//	private CategoryRepository categoryRepository;
+//	
+//	@Autowired
+//	private ShowItemListService showItemListService;
+	
+	// 1ページの表示数 
+	private final String LIMIT = "30";
+	
+	/** 商品一覧を表示する.
+	 * @param model
+	 * @param params
+	 * @return 商品一覧
+	 * @throws Exception
+	 */
 	@GetMapping("/showItemList")
-	public String ShowItemList(Model model) {
-		List<Item> itemList = showItemListService.showItem();
+	public String ShowItemList(Model model, @RequestParam HashMap<String, String> params, String name, Integer category, String brand) throws Exception {
+		// パラメータを設定し、現在のページを取得する  
+		String currentPage = params.get("page");
+		// 初期表示ではパラメータを取得できないので、1ページに設定
+		if (currentPage == null) {
+			currentPage = "1";
+		}
+		// データ取得時の取得件数、取得情報の指定
+		HashMap<String, String> search = new HashMap<String, String>();
+		search.put("limit", LIMIT);
+		search.put("page", currentPage);
+		
+		Integer total = 0;
+		List<Item> itemList = null;
+		try {
+			// データ総数を取得
+			total = itemsRepository.getItemListCount();
+			// データ一覧を取得
+			itemList = itemsRepository.findAll(search);
+		} catch (Exception e) {
+			return "redirect:/list";
+		}
+		// pagination処理
+        // "総数/1ページの表示数"から総ページ数を割り出す
+		Integer totalPage = (total + Integer.valueOf(LIMIT) -1) / Integer.valueOf(LIMIT);
+//		Integer currentItemCount = Integer.valueOf(LIMIT) * Integer.valueOf(currentPage);
+		Integer page = Integer.valueOf(currentPage);
 		model.addAttribute("itemList", itemList);
+		model.addAttribute("page", page);
+		model.addAttribute("totalPage", totalPage);
+		return "list";
+	}
+	
+	/**
+	 * ページ検索を行う.
+	 * 
+	 * @param model
+	 * @param params
+	 * @param selectPage
+	 * @return 商品一覧
+	 * @throws Exception
+	 */
+	@PostMapping("/selectPage")
+	public String selectPage(Model model, @RequestParam HashMap<String, String> params, String selectPage) throws Exception {
+		
+		//データの総数を取得
+		Integer total = itemsRepository.getItemListCount();
+		// "総数/1ページの表示数"から総ページ数を割り出す
+		Integer totalPage = (total + Integer.valueOf(LIMIT) -1) / Integer.valueOf(LIMIT);
+		if (selectPage == null ) {
+			selectPage = "1";
+		}
+		HashMap<String, String> search = new HashMap<>();
+		String currentPage = params.get("page");
+		Integer offSet = (Integer.valueOf(selectPage) -1) * Integer.valueOf(LIMIT);
+		search.put("limit", LIMIT);
+		search.put("page", String.valueOf(offSet));
+		
+		List<Item> itemList = itemsRepository.findAll(search);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("page", Integer.parseInt(selectPage));
+		model.addAttribute("totalPage", totalPage);
 		return "list";
 	}
 	

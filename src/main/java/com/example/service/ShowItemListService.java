@@ -21,9 +21,14 @@ public class ShowItemListService {
 	
 	@Autowired
 	private ItemsRepository itemsRepository;
+//	
+//	public List<Item> showItem() {
+//		List<Item> itemList = itemsRepository.findAll();
+//		return itemList;
+//	}
 	
-	public List<Item> showItem() {
-		List<Item> itemList = itemsRepository.findAll();
+	public List<Item> showItemList(String name, Integer category, String brand){
+		List<Item> itemList = itemsRepository.findByNameAndCategoryAndBrand(name, category, brand);
 		return itemList;
 	}
 

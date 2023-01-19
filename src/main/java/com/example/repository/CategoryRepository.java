@@ -23,7 +23,7 @@ public class CategoryRepository {
 	@Autowired
 	private static final RowMapper<Category> CATEGORY_ROW_MAPPER = new BeanPropertyRowMapper<>(Category.class);
 	
-	public List<Category> findAll() {
+	public List<Category> findByLargeCategory() {
 		String sql = "SELECT id, parent, name, name_all FROM category WHERE parent is null AND name_all is null ORDER BY id;";
 		List<Category> bigCategoryList = template.query(sql, CATEGORY_ROW_MAPPER);
 		return bigCategoryList;
