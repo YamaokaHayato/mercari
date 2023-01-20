@@ -3,9 +3,9 @@ package com.example.form;
 public class SearchItemForm {
 
 	private String name;
-	private String largeCategory;
-	private String mediumCategory;
-	private String smallCategory;
+	private Integer largeCategory;
+	private Integer mediumCategory;
+	private Integer smallCategory;
 	private String brand;
 
 	
@@ -19,32 +19,32 @@ public class SearchItemForm {
 	}
 
 
-	public String getLargeCategory() {
+	public Integer getLargeCategory() {
 		return largeCategory;
 	}
 
 
-	public void setLargeCategory(String largeCategory) {
+	public void setLargeCategory(Integer largeCategory) {
 		this.largeCategory = largeCategory;
 	}
 
 
-	public String getMediumCategory() {
+	public Integer getMediumCategory() {
 		return mediumCategory;
 	}
 
 
-	public void setMediumCategory(String mediumCategory) {
+	public void setMediumCategory(Integer mediumCategory) {
 		this.mediumCategory = mediumCategory;
 	}
 
 
-	public String getSmallCategory() {
+	public Integer getSmallCategory() {
 		return smallCategory;
 	}
 
 
-	public void setSmallCategory(String smallCategory) {
+	public void setSmallCategory(Integer smallCategory) {
 		this.smallCategory = smallCategory;
 	}
 

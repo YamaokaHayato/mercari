@@ -62,10 +62,10 @@
 		<!-- 検索フォーム -->
 		<div id="forms">
 			<form action="" class="form-inline" role="form"
-				th:action="@{/search/searchItem}" method="POST">
+				th:action="@{/search}" th:object="${searchItemForm}" method="POST">
 				<div class="form-group">
 					<input type="text" class="form-control" id="name" name="name"
-						placeholder="item name" />
+						placeholder="item name" th:field="*{name}" />
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
@@ -73,9 +73,8 @@
 				<div class="form-group">
 					<select class="form-control" name="largeCategory">
 						<option>- parentCategory -</option>
-						<option th:each="category:${largeCategoryList}"
-							th:text="${category.name}" th:value="${category.id}"
-							id="largeCategoryId">parentCategory1</option>
+						<option th:each="largeCategory:${largeCategoryList}"
+							th:text="${largeCategory.name}" id="largeCategoryId">parentCategory1</option>
 					</select> <select class="form-control" name="mediumCategory"
 						id="mediumCategory">
 						<option>- childCategory -</option>
@@ -88,7 +87,8 @@
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="brand" />
+					<input type="text" class="form-control" placeholder="brand"
+						name="brand" />
 				</div>
 				<div class="form-group"></div>
 				<button type="submit" class="btn btn-default">
@@ -102,9 +102,11 @@
 			<nav class="page-nav">
 				<ul class="pager">
 					<li class="previous"><a href="#"
-						th:href="@{/showItemList?page=} + ${page-1}">&larr; prev</a></li>
-					<li class="next" th:if="${page} < ${totalPage}"><a href="#"
-						th:href="@{/showItemList?page=} + ${page+1}">next &rarr;</a></li>
+						th:href="@{/search/searchItemAfterPage?page=} + ${-1}">&larr;
+							prev</a></li>
+					<li class="next"><a href="#"
+						th:href="@{/search/searchItemAfterPage?page=} + ${+1}">next
+							&rarr;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -142,10 +144,12 @@
 		<div class="pages">
 			<nav class="page-nav">
 				<ul class="pager">
-					<li class="previous" th:if="${page} > 1"><a href="#"
-						th:href="@{/showItemList?page=} + ${page-1}">&larr; prev</a></li>
-					<li class="next" th:if="${page} < ${totalPage}"><a href="#"
-						th:href="@{/showItemList?page=} + ${page+1}">next &rarr;</a></li>
+					<li class="previous"><a href="#"
+						th:href="@{/search/searchItemAfterPage?page=} + ${-1}">&larr;
+							prev</a></li>
+					<li class="next"><a href="#"
+						th:href="@{/search/searchItemAfterPage?page=} + ${+1}">next
+							&rarr;</a></li>
 				</ul>
 			</nav>
 			<!-- ページ番号を指定して表示するフォーム -->
@@ -166,6 +170,6 @@
 			</div>
 		</div>
 	</div>
-	<script th:src="@{@{/js/category.j}"></script>
+	<script th:src="@{/js/category.js}"></script>
 </body>
 </html>

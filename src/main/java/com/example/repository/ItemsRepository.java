@@ -45,7 +45,6 @@ public class ItemsRepository {
 	public List<Item> findAll(HashMap<String, String> search) throws SQLException, IOException {
 		String sql = "SELECT i.id, i.name, i.condition, c.name_all as category, i.brand, i.price, i.shipping, i.description FROM items as i "
 				+ "INNER JOIN category as c ON i.category = c.id ORDER BY id limit :limit offset :offset;";
-		System.out.println("limit : " + Integer.valueOf(search.get("limit")));
 		Integer limit = Integer.valueOf(search.get("limit"));
 		Integer page = Integer.valueOf(search.get("page")) - 1;
         // 何件情報を取得するかの指定と何件目からの情報を取得するかの指定（※コントローラからパラメータを使って現在のページ数が分かる。それによって何件目からの情報を取得すればいいのかが分かる。）

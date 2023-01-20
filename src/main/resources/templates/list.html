@@ -37,7 +37,7 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="./list.html">Rakus Items</a>
+			<a class="navbar-brand" href="./list.html" th:href="@{/showItemList}">Rakus Items</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
@@ -55,31 +55,30 @@
 	<div id="main" class="container-fluid">
 		<!-- addItem link -->
 		<div id="addItemButton">
-			<a class="btn btn-default" href="./add.html"><i
-				class="fa fa-plus-square-o" th:href="@{/add}"></i> Add New Item</a>
+			<a class="btn btn-default" href="./add.html" th:href="@{/add}"><i
+				class="fa fa-plus-square-o" ></i> Add New Item</a>
 		</div>
 
 		<!-- 検索フォーム -->
 		<div id="forms">
-			<form action="" class="form-inline" role="form" th:action="@{/search/searchItem}" th:object="${searchItemForm}" method="POST">
+			<form action="" class="form-inline" role="form" th:action="@{/search}" th:object="${searchItemForm}" method="POST">
 				<div class="form-group">
-					<input type="text" class="form-control" id="name"
+					<input type=text class="form-control" id="name"
 						placeholder="item name" name="name" th:field="*{name}"/>
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<select class="form-control" name="largeCategory">
+					<select class="form-control" id="largeCategory" name="largeCategory">
 						<option>- parentCategory -</option>
-						<option th:each="category:${largeCategoryList}"
-							th:text="${category.name}" th:value="${category.id}"
-							id="largeCategoryId">parentCategory1</option>
+						<option th:each="largeCategory:${largeCategoryList}"
+							th:text="${largeCategory.name}" th:value="${largeCategory.id}" id="largeCategoryId">parentCategory1</option>
 					</select> <select class="form-control" name="mediumCategory"
 						id="mediumCategory">
 						<option>- childCategory -</option>
 					</select> <select class="form-control" name="smallCategory"
-						id="smallCategory">
+						id="smallCategory" >
 						<option>- grandChild -</option>
 					</select>
 				</div>
@@ -87,7 +86,7 @@
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="brand" />
+					<input type="text" class="form-control" placeholder="brand" name="brand" />
 				</div>
 				<div class="form-group"></div>
 				<button type="submit" class="btn btn-default">
@@ -165,6 +164,6 @@
 			</div>
 		</div>
 	</div>	
-	<script th:src="@{@{/js/category.j}"></script> 
+	<script th:src="@{/js/category.js}"></script> 
 </body>
 </html>

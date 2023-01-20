@@ -3,7 +3,9 @@ package com.example.domain;
 public class SearchItem {
 
 	private String name;
-	private Integer category;
+	private Integer largeCategory;
+	private Integer mediumCategory;
+	private Integer smallCategory;
 	private String brand;
 
 	public String getName() {
@@ -14,12 +16,28 @@ public class SearchItem {
 		this.name = name;
 	}
 
-	public Integer getCategory() {
-		return category;
+	public Integer getLargeCategory() {
+		return largeCategory;
 	}
 
-	public void setCategory(Integer category) {
-		this.category = category;
+	public void setLargeCategory(Integer largeCategory) {
+		this.largeCategory = largeCategory;
+	}
+
+	public Integer getMediumCategory() {
+		return mediumCategory;
+	}
+
+	public void setMediumCategory(Integer mediumCategory) {
+		this.mediumCategory = mediumCategory;
+	}
+
+	public Integer getSmallCategory() {
+		return smallCategory;
+	}
+
+	public void setSmallCategory(Integer smallCategory) {
+		this.smallCategory = smallCategory;
 	}
 
 	public String getBrand() {
@@ -32,7 +50,8 @@ public class SearchItem {
 
 	@Override
 	public String toString() {
-		return "SearchItem [name=" + name + ", category=" + category + ", brand=" + brand + "]";
+		return "SearchItem [name=" + name + ", largeCategory=" + largeCategory + ", mediumCategory=" + mediumCategory
+				+ ", smallCategory=" + smallCategory + ", brand=" + brand + "]";
 	}
 
 }

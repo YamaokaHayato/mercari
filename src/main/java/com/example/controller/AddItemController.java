@@ -17,6 +17,12 @@ import com.example.domain.Item;
 import com.example.form.ItemForm;
 import com.example.service.AddItemService;
 
+/**
+ * 商品追加を操作するコントローラー.
+ * 
+ * @author yamaokahayato
+ *
+ */
 @Controller
 @RequestMapping("/add")
 public class AddItemController {
@@ -24,7 +30,14 @@ public class AddItemController {
 	@Autowired
 	private AddItemService addItemService;
 
-	@GetMapping("/")
+	/**
+	 * 商品追加ページを表示.
+	 * 
+	 * @param form ItemForm
+	 * @param model model
+	 * @return 商品追加ページ
+	 */
+	@GetMapping("")
 	public String index(ItemForm form, Model model) {
 		List<Category> largeCategoryList = addItemService.findByLargeCategory();
 		model.addAttribute("largeCategoryList", largeCategoryList);
