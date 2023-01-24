@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<html lang="ja" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +18,7 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
 	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
 	crossorigin="anonymous" />
-<link rel="stylesheet" href="./mercari.css" />
+<link rel="stylesheet" th:href="@{/css/mercari.css}" />
 <!-- script -->
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
@@ -37,16 +38,26 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="./list.html" th:href="@{/showItemList}">Rakus Items</a>
+			<a class="navbar-brand" href="./list.html" th:href="@{/showItemList}">Rakus
+				Items</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a id="logout" href="./login.html">Logout <i
-							class="fa fa-power-off"></i></a></li>
+					<li th:unless="${session.user}">
+              <a id="login" th:href="@{/userLogin}"
+                >Login <i class="fa fa-power-off"></i
+              ></a>
+            </li>
+            <li th:if="${session.user}">
+              <a id="logout" th:href="@{/logout}">Logout
+							<i class="fa fa-power-off"></i>
+					</a></li>
 				</ul>
 				<p class="navbar-text navbar-right">
-					<span id="loginName">user: userName</span>
+					<span id="loginName" th:unless="${session.user}">user:
+						userName</span> <span th:if="${session.user}"
+						th:text="${session.user.userName}"></span>
 				</p>
 			</div>
 		</div>
@@ -56,29 +67,32 @@
 		<!-- addItem link -->
 		<div id="addItemButton">
 			<a class="btn btn-default" href="./add.html" th:href="@{/add}"><i
-				class="fa fa-plus-square-o" ></i> Add New Item</a>
+				class="fa fa-plus-square-o"></i> Add New Item</a>
 		</div>
 
 		<!-- 検索フォーム -->
 		<div id="forms">
-			<form action="" class="form-inline" role="form" th:action="@{/search}" th:object="${searchItemForm}" method="POST">
+			<form action="" class="form-inline" role="form"
+				th:action="@{/search}" th:object="${searchItemForm}" method="POST">
 				<div class="form-group">
 					<input type=text class="form-control" id="name"
-						placeholder="item name" name="name" th:field="*{name}"/>
+						placeholder="item name" name="name" th:field="*{name}" />
 				</div>
 				<div class="form-group">
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<select class="form-control" id="largeCategory" name="largeCategory">
+					<select class="form-control" id="largeCategory"
+						name="largeCategory">
 						<option>- parentCategory -</option>
 						<option th:each="largeCategory:${largeCategoryList}"
-							th:text="${largeCategory.name}" th:value="${largeCategory.id}" id="largeCategoryId">parentCategory1</option>
+							th:text="${largeCategory.name}" th:value="${largeCategory.id}"
+							id="largeCategoryId">parentCategory1</option>
 					</select> <select class="form-control" name="mediumCategory"
 						id="mediumCategory">
 						<option>- childCategory -</option>
 					</select> <select class="form-control" name="smallCategory"
-						id="smallCategory" >
+						id="smallCategory">
 						<option>- grandChild -</option>
 					</select>
 				</div>
@@ -86,7 +100,8 @@
 					<i class="fa fa-plus"></i>
 				</div>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="brand" name="brand" />
+					<input type="text" class="form-control" placeholder="brand"
+						name="brand" />
 				</div>
 				<div class="form-group"></div>
 				<button type="submit" class="btn btn-default">
@@ -102,7 +117,7 @@
 					<li class="previous" th:if="${page} > 1"><a href="#"
 						th:href="@{/showItemList?page=} + ${page-1}">&larr; prev</a></li>
 					<li class="next" th:if="${page} < ${totalPage}"><a href="#"
-						th:href="@{/showItemList?page=} + ${page+1}">next &rarr;</a></li> 
+						th:href="@{/showItemList?page=} + ${page+1}">next &rarr;</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -135,7 +150,7 @@
 				</tbody>
 			</table>
 		</div>
-		
+
 		<!-- pagination -->
 		<div class="pages">
 			<nav class="page-nav">
@@ -148,7 +163,8 @@
 			</nav>
 			<!-- ページ番号を指定して表示するフォーム -->
 			<div id="select-page">
-				<form class="form-inline" method="POST" th:action="@{/selectPage?page=} + ${selectPage}">
+				<form class="form-inline" method="POST"
+					th:action="@{/selectPage?page=} + ${selectPage}">
 					<div class="form-group">
 						<div class="input-group col-xs-6">
 							<label></label> <input type="text" class="form-control"
@@ -163,7 +179,7 @@
 				</form>
 			</div>
 		</div>
-	</div>	
-	<script th:src="@{/js/category.js}"></script> 
+	</div>
+	<script th:src="@{/js/category.js}"></script>
 </body>
 </html>
