@@ -36,6 +36,14 @@ public class ItemEditController {
 	@Autowired
 	private ShowItemDetailController showItemDetailController;
 	
+	/**
+	 * 商品編集画面を表示する.
+	 * 
+	 * @param form
+	 * @param model model
+	 * @param id 商品ID
+	 * @return edit
+	 */
 	@GetMapping("")
 	public String index(EditItemForm form, Model model, Integer id) {
 		EditItem item = itemEditService.load(id);

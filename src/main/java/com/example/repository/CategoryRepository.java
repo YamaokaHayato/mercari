@@ -12,8 +12,6 @@ import org.springframework.stereotype.Repository;
 
 import com.example.domain.Category;
 
-
-
 @Repository
 public class CategoryRepository {
 	
@@ -25,8 +23,8 @@ public class CategoryRepository {
 	
 	public List<Category> findByLargeCategory() {
 		String sql = "SELECT id, parent, name, name_all FROM category WHERE parent is null AND name_all is null ORDER BY id;";
-		List<Category> bigCategoryList = template.query(sql, CATEGORY_ROW_MAPPER);
-		return bigCategoryList;
+		List<Category> largeCategoryList = template.query(sql, CATEGORY_ROW_MAPPER);
+		return largeCategoryList;
 	}
 	
 	public List<Category> findByMidumCatgory(Integer id) {

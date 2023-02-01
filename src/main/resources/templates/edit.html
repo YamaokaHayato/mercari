@@ -37,7 +37,8 @@
 				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="./list.html" th:href="@{/showItemList}">Rakus Items</a>
+			<a class="navbar-brand" href="./list.html" th:href="@{/showItemList}">Rakus
+				Items</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
@@ -54,9 +55,9 @@
 
 	<!-- details -->
 	<div id="input-main" class="container">
-		<a type="button" class="btn btn-default" href="./detail.html" th:href="@{/showItemDetail?id=} + ${item.id}"><i
-			class="fa fa-reply" ></i>
-			back</a>
+		<a type="button" class="btn btn-default" href="./detail.html"
+			th:href="@{/showItemDetail?id=} + ${item.id}"><i
+			class="fa fa-reply"></i> back</a>
 		<h2>Edit</h2>
 
 		<!-- edit form -->
@@ -82,30 +83,27 @@
 			<div class="form-group">
 				<label for="category" class="col-sm-2 control-label">category</label>
 				<div class="col-sm-8">
-					<select class="form-control" id="largeCategory">
+					<select class="form-control" name="largeCategory" id="largeCategory">
 						<option>- parentCategory -</option>
 						<option th:each="largeCategory : ${largeCategoryList}"
-							th:text="${largeCategory.name}" th:value="${largeCategory.id}">parentCategory1</option>
-						<!-- <option>parentCategory2</option>
-						<option>parentCategory3</option>
-						<option>parentCategory4</option>
-						<option>parentCategory5</option> -->
+							th:text="${largeCategory.name}" th:value="${largeCategory.id}"
+							id="largeCategoryId">parentCategory1</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="category" class="col-sm-2 control-label"></label>
 				<div class="col-sm-8">
-					<select class="form-control" id="mediumCategory">
+					<select class="form-control" id="mediumCategory" name="mediumCategory">
 						<option>- childCategory -</option>
-						<option>childCategory1</option>
 					</select>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="category" class="col-sm-2 control-label"></label>
 				<div class="col-sm-8">
-					<select class="form-control" id="smallCategory" th:field="*{category}">
+					<select class="form-control" id="smallCategory"
+						th:field="*{category}">
 						<option th:value="${category}">- grandChild -</option>
 					</select>
 				</div>
@@ -143,12 +141,12 @@
 			<!-- submit button -->
 			<div class="form-group">
 				<div class="col-sm-offset-2 col-sm-10">
-				<input type="hidden" name="id" th:value="${item.id}">
+					<input type="hidden" name="id" th:value="${item.id}">
 					<button type="submit" class="btn btn-default">Submit</button>
 				</div>
 			</div>
 		</form>
 	</div>
-	<script type="text/javascript" th:src="@{/js/category.js}"></script>
+	<script th:src="@{/js/category.js}"></script>
 </body>
 </html>

@@ -11,6 +11,12 @@ import org.springframework.stereotype.Repository;
 
 import com.example.domain.EditItem;
 
+/**
+ * Itemsテーブルを操作するリポジトリ.
+ * 
+ * @author yamaokahayato
+ *
+ */
 @Repository
 public class EditItemRepository {
 	
@@ -20,6 +26,12 @@ public class EditItemRepository {
 	@Autowired
 	private static final RowMapper<EditItem> EDITITEM_ROW_MAPPER = new BeanPropertyRowMapper<>(EditItem.class);
 	
+	/**
+	 * 選択された1件の商品情報を取得する.
+	 * 
+	 * @param id
+	 * @return item
+	 */
 	public EditItem load(Integer id) {
 		String sql = "SELECT id, name, condition, category, brand, price, shipping, description FROM items WHERE id =:id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
@@ -31,6 +43,11 @@ public class EditItemRepository {
 		}
 	}
 	
+	/**
+	 * 商品情報を更新する.
+	 * 
+	 * @param item
+	 */
 	public void update(EditItem item) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
 		String sql = "UPDATE items SET name =:name, condition =:condition, category =:category, brand =:brand, price =:price, shipping =:shipping, description =:description where id =:id;";

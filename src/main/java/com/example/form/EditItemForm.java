@@ -1,17 +1,24 @@
 package com.example.form;
 
+/**
+ * 商品の編集内容を受け取るフォーム.
+ * 
+ * @author yamaokahayato
+ *
+ */
 public class EditItemForm {
 
+	/** 商品名 */
 	private String name;
-
+	/** 金額 */
 	private String price;
-
+	/** カテゴリー */
 	private String Category;
-
+	/** ブランド */
 	private String brand;
-
+	/** コンディション */
 	private String condition;
-	
+	/** 商品説明 */
 	private String description;
 
 	public String getName() {

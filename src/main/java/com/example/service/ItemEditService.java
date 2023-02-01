@@ -20,10 +20,21 @@ public class ItemEditService {
 	@Autowired
 	private EditItemRepository editItemRepository;
 	
+	/**
+	 * 商品情報を更新する.
+	 * 
+	 * @param item
+	 */
 	public void update(EditItem item) {
 		editItemRepository.update(item);
 	}
 	
+	/**
+	 * 選択された商品を検索する.
+	 * 
+	 * @param id
+	 * @return item
+	 */
 	public EditItem load(Integer id) {
 		EditItem item = editItemRepository.load(id);
 		return item;

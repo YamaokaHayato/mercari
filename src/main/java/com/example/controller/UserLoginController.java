@@ -30,8 +30,9 @@ public class UserLoginController {
 	
 	@PostMapping("/login")
 	public String login(UserLoginForm form) {
-//		User user = (User) userLoginService.loadUserByUsername(form.getUsername());
-//		session.setAttribute("user", user);
+		User user = new User();
+		user.setUsername(form.getUsername());
+		session.setAttribute("user", user);
 		return "redirect:/showItemList";
 	}
 

@@ -50,7 +50,7 @@ public class SearchItemController {
 	 * @param form
 	 * @return
 	 */
-	@PostMapping("")
+	@PostMapping("/searchItem")
 	public String searchItem(Model model, SearchItemForm form) {
 		List<Category> largeCategoryList = addItemService.findByLargeCategory();
 		model.addAttribute("largeCategoryList", largeCategoryList);

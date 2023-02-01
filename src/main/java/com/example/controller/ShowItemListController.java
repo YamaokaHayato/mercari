@@ -24,7 +24,7 @@ import com.example.service.AddItemService;
  *
  */
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class ShowItemListController {
 	
 	@Autowired
@@ -43,8 +43,9 @@ public class ShowItemListController {
 	 * @throws Exception
 	 */
 	@GetMapping("/showItemList")
-	public String ShowItemList(Model model, @RequestParam HashMap<String, String> params, SearchItemForm form) throws Exception {
+	public String ShowItemList(Model model, @RequestParam HashMap<String, String> params, SearchItemForm form) throws Exception { 
 		
+		//大カテゴリーを取得
 		List<Category> largeCategoryList = addItemService.findByLargeCategory();
 		model.addAttribute("largeCategoryList", largeCategoryList);
 		

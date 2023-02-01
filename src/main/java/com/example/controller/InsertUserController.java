@@ -21,8 +21,8 @@ public class InsertUserController {
 	@Autowired
 	private UserService userService;
 	
-	@GetMapping("")
-	public String index(InsertUserForm form, Model model) {
+	@GetMapping("/toInsert")
+	public String toInsert(InsertUserForm form, Model model) {
 		return "register";
 		
 	}
@@ -31,7 +31,7 @@ public class InsertUserController {
 	public String insert(@Validated InsertUserForm form, BindingResult result, Model model) {
 		System.out.println(form);
 		if(result.hasErrors()) {
-			return index(form, model);
+			return toInsert(form, model);
 		}
 		User user = new User();
 		user.setAuthority(null);

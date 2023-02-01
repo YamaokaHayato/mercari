@@ -31,7 +31,7 @@ public class AddItemController {
 	private AddItemService addItemService;
 
 	/**
-	 * 商品追加ページを表示.
+	 * 商品追加ページを表示する.
 	 * 
 	 * @param form ItemForm
 	 * @param model model
@@ -44,6 +44,14 @@ public class AddItemController {
 		return "add";
 	}
 
+	/**
+	 * 商品を追加する.
+	 * 
+	 * @param form
+	 * @param result
+	 * @param model
+	 * @return add
+	 */
 	@PostMapping("/addItem")
 	public String addItem(@Validated ItemForm form, BindingResult result, Model model) {
 		if (result.hasErrors()) {

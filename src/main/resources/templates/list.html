@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja" xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -57,7 +57,7 @@
 				<p class="navbar-text navbar-right">
 					<span id="loginName" th:unless="${session.user}">user:
 						userName</span> <span th:if="${session.user}"
-						th:text="${session.user.userName}"></span>
+						th:text="${session.user.username}"></span>さん
 				</p>
 			</div>
 		</div>
@@ -73,7 +73,7 @@
 		<!-- 検索フォーム -->
 		<div id="forms">
 			<form action="" class="form-inline" role="form"
-				th:action="@{/search}" th:object="${searchItemForm}" method="POST">
+				th:action="@{/search/searchItem}" th:object="${searchItemForm}" method="POST">
 				<div class="form-group">
 					<input type=text class="form-control" id="name"
 						placeholder="item name" name="name" th:field="*{name}" />
