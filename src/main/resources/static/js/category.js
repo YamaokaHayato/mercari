@@ -2,6 +2,7 @@
 
 $(function() {
 	$('#largeCategory').change(function() {
+		console.log("wwwwwwwww")
 		let hostUrl = "http://localhost:8080/mercari/add/mediumCategory";
 		let id = $("#largeCategory").val();
 		$("#mediumCategory > option").remove();

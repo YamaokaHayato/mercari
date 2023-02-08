@@ -1,6 +1,5 @@
 package com.example.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,20 +10,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.example.service.UserLoginService;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 	
-	@Autowired
-	private UserLoginService userLoginService;
-	
-	// cssファイルなどへのアクセス制限に関する記述.
-		@Bean
-		public WebSecurityCustomizer webSecurityCustomizer() {
-			return (web) -> web.ignoring().antMatchers("/css/**", "/js/**", "/fonts/**");
-		}
+	@Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return (web) -> web.ignoring().antMatchers("/html/" ,"/css/", "/js/", "/fonts/");
+    }
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -38,14 +31,14 @@ public class SecurityConfig {
 						// staticの中のファイルを使用できるようにする記述
 					.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
 						//下記の記述はログインなしでもアクセスを可能にする
-						.mvcMatchers("/userLogin").permitAll().mvcMatchers("/userLogin/login").permitAll()
-						.mvcMatchers("/user/toInsert").permitAll().mvcMatchers("/user/insert").permitAll()
-						.mvcMatchers("/showItemList").permitAll().mvcMatchers("/selectPage").permitAll()
-						.mvcMatchers("/showItemDetail").permitAll()
-						.mvcMatchers("/add").permitAll()
-						.mvcMatchers("/search/searchItemAfterPage").permitAll()
-						.mvcMatchers("/edit").permitAll().anyRequest()
-						.authenticated());
+						.antMatchers("/userLogin").permitAll().antMatchers("/userLogin/login").permitAll()
+						.antMatchers("/user/toInsert").permitAll().antMatchers("/user/insert").permitAll()
+						.antMatchers("/showItemList").permitAll().antMatchers("/selectPage").permitAll()
+						.antMatchers("/showItemDetail").permitAll()
+						.antMatchers("/add").permitAll().antMatchers("/add/mediumCategory").permitAll().antMatchers("/add/smallCategory").permitAll()
+						.antMatchers("/search/searchItemAfterPage").permitAll()
+						.antMatchers("/edit").permitAll().anyRequest()
+						.authenticated()).csrf(csrf -> csrf.disable());
 				
 
 		return http.build();
