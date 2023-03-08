@@ -1,0 +1,80 @@
+category
+create table category (
+   id serial not null
+  , parent integer
+  , name character varying(255)
+  ,name_all character varying(255)
+  ,created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  ,updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  , constraint category_PKC primary key (id)
+) ;
+
+create unique index category_pki
+  on category(id);
+
+create index parent_id_index
+  on category(parent);
+  
+create table items (
+  id serial not null
+  , name character varying(255)
+  , condition integer
+  , category integer
+  , brand character varying(255)
+  , price double precision
+  , shipping integer
+  , description_id integer
+  ,created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  ,updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  , constraint items_PKC primary key (id)
+  , FOREIGN KEY description_id REFERENCES description(id)
+) ;
+
+create table description (
+  id serial not null
+  , description text
+  ,created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  ,updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  , constraint description_PKC primary key (id)
+);
+
+create index items_brand_index
+  on items(brand);
+
+create index items_category_index
+  on items(category);
+
+create unique index items_pki
+  on items(id);
+  
+  create table users (
+  id serial not null
+  , name varchar(255)
+  , password varchar(255)
+  , authority integer
+  ,created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  ,updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  , constraint users_PKC primary key (id)
+) ;
+
+create unique index users_pki
+  on users(id);
+  
+  
+-- triggerを定義
+-- 行が更新された時に、updated_atに現在時刻を設定
+CREATE FUNCTION set_updated_at() RETURNS TRIGGER AS $$
+BEGIN
+    IF (TG_OP = 'UPDATE') THEN
+        NEW.updated_at := now();
+        return NEW;
+    END IF;
+END;
+$$ LANGUAGE plpgsql;
+  
+  
+ CREATE TRIGGER trg_category_updated_at BEFORE UPDATE ON category FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
+ CREATE TRIGGER trg_items_updated_at BEFORE UPDATE ON items FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
+ CREATE TRIGGER trg_description_updated_at BEFORE UPDATE ON description FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
+ CREATE TRIGGER trg_users_updated_at BEFORE UPDATE ON users FOR EACH ROW EXECUTE PROCEDURE set_updated_at();
+ 

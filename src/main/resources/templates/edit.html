@@ -43,11 +43,20 @@
 		<div id="navbar" class="collapse navbar-collapse">
 			<div>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a id="logout" href="./login.html" th:href="@{/logout}">Logout&nbsp;<i
-							class="fa fa-power-off"></i></a></li>
+					<li th:unless="${session.user}">
+              <a id="login" th:href="@{/userLogin}"
+                >Login <i class="fa fa-power-off"></i
+              ></a>
+            </li>
+            <li th:if="${session.user}">
+              <a id="logout" th:href="@{/logout}">Logout
+							<i class="fa fa-power-off"></i>
+					</a></li>
 				</ul>
 				<p class="navbar-text navbar-right">
-					<span id="loginName">user: userName</span>
+					<span id="loginName" th:unless="${session.user}">user:
+						userName</span> <span th:if="${session.user}"
+						th:text="${session.user.username}"></span>さん
 				</p>
 			</div>
 		</div>
