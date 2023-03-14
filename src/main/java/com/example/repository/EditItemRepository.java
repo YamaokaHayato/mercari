@@ -1,6 +1,7 @@
 package com.example.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.OptimisticLockingFailureException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -33,7 +34,7 @@ public class EditItemRepository {
 	 * @return item
 	 */
 	public EditItem load(Integer id) {
-		String sql = "SELECT id, name, condition, category, brand, price, shipping, description FROM items WHERE id =:id;";
+		String sql = "SELECT id, name, condition, category, brand, price, shipping, description, version FROM items WHERE id =:id;";
 		SqlParameterSource param = new MapSqlParameterSource().addValue("id", id);
 		try {
 			EditItem item = template.queryForObject(sql, param, EDITITEM_ROW_MAPPER);
@@ -50,8 +51,12 @@ public class EditItemRepository {
 	 */
 	public void update(EditItem item) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-		String sql = "UPDATE items SET name =:name, condition =:condition, category =:category, brand =:brand, price =:price, shipping =:shipping, description =:description where id =:id;";
-		template.update(sql, param);
+		String sql = "UPDATE items SET name =:name, condition =:condition, category =:category, brand =:brand, price =:price, shipping =:shipping,"
+				+ "description =:description, version = version + 1 where id =:id and version =:version;";
+		Integer updateItem = template.update(sql, param);
+		if (updateItem == 0) {
+	        throw new OptimisticLockingFailureException("Failed to update book ");
+	    }
 	}
 
 }

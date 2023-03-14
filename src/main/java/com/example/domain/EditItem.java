@@ -10,6 +10,7 @@ public class EditItem {
 	private Double price;
 	private Integer shipping;
 	private String description;
+	private Integer version;
 
 	public Integer getId() {
 		return id;
@@ -73,6 +74,14 @@ public class EditItem {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
 	}
 
 	@Override

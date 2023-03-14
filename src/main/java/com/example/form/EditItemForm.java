@@ -7,7 +7,8 @@ package com.example.form;
  *
  */
 public class EditItemForm {
-
+	
+	
 	/** 商品名 */
 	private String name;
 	/** 金額 */
@@ -20,6 +21,7 @@ public class EditItemForm {
 	private String condition;
 	/** 商品説明 */
 	private String description;
+	
 
 	public String getName() {
 		return name;

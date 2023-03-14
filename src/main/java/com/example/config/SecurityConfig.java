@@ -37,7 +37,7 @@ public class SecurityConfig {
 						.antMatchers("/showItemDetail").permitAll()
 						.antMatchers("/add").permitAll().antMatchers("/add/mediumCategory").permitAll().antMatchers("/add/smallCategory").permitAll()
 						.antMatchers("/search/searchItemAfterPage").permitAll().antMatchers("/search/searchItem").permitAll()
-						.antMatchers("/edit").permitAll().anyRequest()
+						.antMatchers("/edit").permitAll().antMatchers("/edit/editItem").permitAll().anyRequest()
 						.authenticated()).csrf(csrf -> csrf.disable());
 				
 

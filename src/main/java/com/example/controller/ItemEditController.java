@@ -62,16 +62,15 @@ public class ItemEditController {
 	}
 	
 	@PostMapping("/editItem")
-	public String editItem(EditItemForm form, Model model, Integer id) {
+	public String editItem(EditItemForm form, Model model, Integer id, Integer version) {
 		EditItem item = new EditItem();
-		System.out.println(form);
 		BeanUtils.copyProperties(form, item);
 		item.setId(id);
 		item.setPrice(Double.parseDouble(form.getPrice()));
 		item.setCategory(Integer.parseInt(form.getCategory()));
 		item.setCondition(Integer.parseInt(form.getCondition()));
 		item.setShipping(0);
-		System.out.println(item);
+		item.setVersion(version);
 		itemEditService.update(item);
 		return showItemDetailController.showItemDetail(id,model);
 	}

@@ -16,6 +16,7 @@ public class Item {
 	private Double price;
 	private Integer shipping;
 	private String description;
+	private Integer version;
 
 	public Integer getId() {
 		return id;
@@ -81,10 +82,18 @@ public class Item {
 		this.description = description;
 	}
 
+	public Integer getVersion() {
+		return version;
+	}
+
+	public void setVersion(Integer version) {
+		this.version = version;
+	}
+
 	@Override
 	public String toString() {
 		return "Item [id=" + id + ", name=" + name + ", Condition=" + Condition + ", category=" + category + ", brand="
-				+ brand + ", price=" + price + ", shipping=" + shipping + ", description=" + description + "]";
+				+ brand + ", price=" + price + ", shipping=" + shipping + ", description=" + description + ", version="
+				+ version + "]";
 	}
-
 }
