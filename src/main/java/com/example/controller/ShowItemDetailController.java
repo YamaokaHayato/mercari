@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.domain.Item;
 import com.example.service.ShowItemDetailService;
@@ -17,7 +18,7 @@ public class ShowItemDetailController {
 	private ShowItemDetailService showItemDetailService;
 	
 	@GetMapping("/showItemDetail")
-	public String showItemDetail(Integer id, Model model) {
+	public String showItemDetail(@RequestParam("id") Integer id, Model model) {
 		Item item = showItemDetailService.showItemDetail(id);
 		model.addAttribute("item", item);
 		return "detail";

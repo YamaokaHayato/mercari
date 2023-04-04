@@ -4,8 +4,8 @@ create table category (
   , parent integer
   , name character varying(255)
   ,	name_all character varying(255)
-  ,	created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  ,	updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  ,	created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+  ,	updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
   , constraint category_PKC primary key (id)
 ) ;
 
@@ -24,8 +24,8 @@ create table items (
   , price double precision
   , shipping integer
   , description_id integer
-  ,	created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  ,	updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  ,	created_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
+  ,	updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP NOT NULL
   , constraint items_PKC primary key (id)
   , FOREIGN KEY description_id REFERENCES description(id)
 ) ;

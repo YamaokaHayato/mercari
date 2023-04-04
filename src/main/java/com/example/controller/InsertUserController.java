@@ -29,7 +29,6 @@ public class InsertUserController {
 	
 	@PostMapping("/insert")
 	public String insert(@Validated InsertUserForm form, BindingResult result, Model model) {
-		System.out.println(form);
 		if(result.hasErrors()) {
 			return toInsert(form, model);
 		}
