@@ -29,11 +29,6 @@ class ItemEditServiceTest {
 	void openMocks() throws Exception {
 		closeable = MockitoAnnotations.openMocks(this);
 	}
-	
-	@AfterEach
-	public void releaseMocks() throws Exception {
-	    closeable.close();
-	  }
 
 	@Test
 	void test() {
@@ -52,5 +47,10 @@ class ItemEditServiceTest {
 		
 		verify(editItemRepository, times(1)).update(item);
 	}
+	
+	@AfterEach
+	public void releaseMocks() throws Exception {
+	    closeable.close();
+	  }
 
 }

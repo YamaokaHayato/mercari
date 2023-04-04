@@ -31,11 +31,6 @@ class AddItemServiceTest {
 		closeable = MockitoAnnotations.openMocks(this);
 	}
 	
-	@AfterEach
-	public void releaseMocks() throws Exception {
-	    closeable.close();
-	  }
-	
 	@DisplayName("商品追加のテスト")
 	@Test
 	void addItemTest() {
@@ -55,7 +50,10 @@ class AddItemServiceTest {
 		verify(itemsRepository, times(1)).insert(item);
 	}
 	
-
+	@AfterEach
+	public void releaseMocks() throws Exception {
+	    closeable.close();
+	  }
 	
 	
 

@@ -36,15 +36,6 @@ class UserServiceTest {
 	@BeforeEach
 	void openMocks() throws Exception {
 		closeable = MockitoAnnotations.openMocks(this);
-		
-		
-		System.out.println("beforeEach : " + user);
-
-	}
-
-	@AfterEach
-	void closeMocks() throws Exception {
-		closeable.close();
 	}
 	
 	@DisplayName("ユーザー登録のテスト")
@@ -60,8 +51,11 @@ class UserServiceTest {
 		userService.insert(user);
 		
 		verify(userRepostory, times(1)).insert(user);
-		
-		
+	}
+	
+	@AfterEach
+	void closeMocks() throws Exception {
+		closeable.close();
 	}
 
 }
